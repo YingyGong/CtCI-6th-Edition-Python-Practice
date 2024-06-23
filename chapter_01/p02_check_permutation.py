@@ -35,6 +35,21 @@ def check_permutation_pythonic(str1, str2):
     return Counter(str1) == Counter(str2)
 
 
+def my_sol(a: str, b: str) -> bool:
+    hash_table = dict()
+    for char in a:
+        hash_table[char] = hash_table.get(char, 0) + 1
+    for char in b:
+        val = hash_table.get(char, 0)
+        if val <= 0:
+            return False
+        hash_table[char] -= 1
+    for val in hash_table.values():
+        if val != 0:
+            return False
+    return True
+
+
 class Test(unittest.TestCase):
     # str1, str2, is_permutation
     test_cases = (
@@ -55,6 +70,7 @@ class Test(unittest.TestCase):
         check_permutation_by_sort,
         check_permutation_by_count,
         check_permutation_pythonic,
+        my_sol
     ]
 
     def test_cp(self):

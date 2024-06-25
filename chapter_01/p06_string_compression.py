@@ -20,6 +20,26 @@ def compress_string(string):
     return min(string, "".join(compressed), key=len)
 
 
+def my_sol(string: str) -> str:
+    if string == "":
+        return string
+   
+    ans = ""
+    i = 0
+    while i < len(string):
+        cur_char = string[i]
+        j = i + 1
+        while j < len(string) and string[j] == cur_char:
+            j += 1
+        ans += cur_char
+        ans += str(j - i)
+        i = j
+    if len(ans) < len(string):
+        return ans
+    else:
+        return string
+
+
 class Test(unittest.TestCase):
     test_cases = [
         ("aabcccccaaa", "a2b1c5a3"),
@@ -30,7 +50,7 @@ class Test(unittest.TestCase):
         ("", ""),
     ]
     testable_functions = [
-        compress_string,
+        compress_string, my_sol
     ]
 
     def test_string_compression(self):

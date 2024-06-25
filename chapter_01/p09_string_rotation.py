@@ -7,6 +7,8 @@ def string_rotation(s1, s2):
         return s2 in s1 * 2
     return False
 
+# my solution is exactly the same
+
 
 class Test(unittest.TestCase):
 

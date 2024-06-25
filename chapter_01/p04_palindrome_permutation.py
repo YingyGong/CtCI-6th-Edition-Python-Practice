@@ -70,6 +70,20 @@ def is_palindrome_permutation_pythonic(phrase):
     return sum(val % 2 for val in counter.values()) <= 1
 
 
+def my_sol(string:str) -> bool:
+    string = clean_phrase(string)
+    counter = Counter(string)
+    one_odd = True
+    for val in counter.values():
+        if val % 2 != 0:
+            if one_odd:
+                one_odd = False
+                continue
+            else:
+                return False
+    return True
+
+
 class Test(unittest.TestCase):
     test_cases = [
         ("aba", True),
@@ -92,6 +106,8 @@ class Test(unittest.TestCase):
         is_palindrome_bit_vector,
         is_palindrome_permutation_pythonic,
         is_palindrome_bit_vector2,
+        my_sol
+        
     ]
 
     def test_pal_perm(self):

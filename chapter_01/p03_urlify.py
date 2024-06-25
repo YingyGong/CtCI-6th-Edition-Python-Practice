@@ -25,6 +25,30 @@ def urlify_pythonic(text, length):
     """solution using standard library"""
     return text[:length].replace(" ", "%20")
 
+# I made three errors initially: first, str in Python can not be modified in place; 
+# secondly, when I do reverse replacing, remember that indexing in Python is [a: b] (a inclusive but b exclusive)
+# lastly, if I modify char_list, I need to clear first few chars
+def my_sol(string: str, length: int) -> str:
+    n = len(string)
+    i = n - 1
+    forward_idx = length - 1
+    char_list = list(string)
+    new_list = [''] * n 
+    while i > -1 and forward_idx > -1:
+        if char_list[forward_idx] != ' ':
+            new_list[i] = char_list[forward_idx]  
+            i -= 1
+            forward_idx -= 1
+
+        else:
+            new_list[i-2:i+1] = "%20"
+            i -= 3
+            forward_idx -= 1 
+    
+    # remove trailing zero
+    string = "".join(new_list)
+    return string.strip()
+
 
 class Test(unittest.TestCase):
     """Test Cases"""
@@ -35,7 +59,7 @@ class Test(unittest.TestCase):
         (" a b    ", 4): "%20a%20b",
         (" a b       ", 5): "%20a%20b%20",
     }
-    testable_functions = [urlify_algo, urlify_pythonic]
+    testable_functions = [urlify_algo, urlify_pythonic, my_sol]
 
     def test_urlify(self):
         for urlify in self.testable_functions:

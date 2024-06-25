@@ -78,6 +78,16 @@ def is_unique_chars_sort(string: str) -> bool:
     return True
 
 
+def my_sol(string: str) -> bool:
+    hash_table = set()
+    for char in string:
+        if char in hash_table:
+            return False
+        else:
+            hash_table.add(char)
+    return True
+
+
 class Test(unittest.TestCase):
     test_cases = [
         ("abcd", True),
@@ -96,6 +106,7 @@ class Test(unittest.TestCase):
         is_unique_chars_using_set,
         is_unique_chars_sorting,
         is_unique_chars_sort,
+        my_sol
     ]
 
     def test_is_unique_chars(self):

@@ -38,6 +38,56 @@ def one_edit_insert(s1, s2):
             j += 1
     return True
 
+def my_sol(s1, s2):
+    m = len(s1)
+    n = len(s2)
+    if abs(m - n) > 1:
+        return False
+    if m == n:
+        p = 0
+        count = 0
+        while p < m:
+            if s1[p] == s2[p]:
+                p += 1
+                continue
+            count += 1
+            p += 1
+            if count > 1:
+                return False
+        return True
+    
+    # I should write a helper function to avoid overlapping.
+    elif m > n: # m > n by 1
+        p1, p2 = 0, 0
+        only_one_mismatch = True
+        while p1 < m and p2 < n:
+            if s1[p1] != s2[p2]:
+                if only_one_mismatch:
+                    p1 += 1
+                    only_one_mismatch = False
+
+                else:
+                    return False
+            else:
+                p1 += 1
+                p2 += 1
+        return True
+    else:
+        p1, p2 = 0, 0
+        only_one_mismatch = True
+        while p1 < m and p2 < n:
+            if s1[p1] != s2[p2]:
+                if only_one_mismatch:
+                    p2 += 1
+                    only_one_mismatch = False
+                else:
+                    return False
+            else:
+                p1 += 1
+                p2 += 1
+        return True
+
+
 
 class Test(unittest.TestCase):
     test_cases = [
@@ -70,7 +120,7 @@ class Test(unittest.TestCase):
         ("ale", "elas", False),
     ]
 
-    testable_functions = [are_one_edit_different]
+    testable_functions = [are_one_edit_different, my_sol]
 
     def test_one_away(self):
 

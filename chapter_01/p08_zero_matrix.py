@@ -1,7 +1,7 @@
 # O(MxN)
 import unittest
 from copy import deepcopy
-
+from typing import List
 
 def zero_matrix(matrix):
     m = len(matrix)
@@ -34,6 +34,24 @@ def zero_matrix_pythonic(matrix):
     return matrix
 
 
+def my_sol(M: List[List[int]]) ->  List[List[int]]:
+    m =  len(M)
+    assert (m > 0)
+    n = len(M[0]) 
+    zero_rows = set()
+    zero_cols = set()
+    for i in range(m):
+        for j in range(n):
+            if M[i][j] == 0:
+                zero_rows.add(i)
+                zero_cols.add(j)
+    for i in range(m):
+        for j in range(n):
+            if i in zero_rows or j in zero_cols:
+                M[i][j] = 0
+    return M
+
+
 class Test(unittest.TestCase):
 
     test_cases = [
@@ -54,7 +72,7 @@ class Test(unittest.TestCase):
             ],
         )
     ]
-    testable_functions = [zero_matrix, zero_matrix_pythonic]
+    testable_functions = [zero_matrix, zero_matrix_pythonic, my_sol]
 
     def test_zero_matrix(self):
         for f in self.testable_functions:
